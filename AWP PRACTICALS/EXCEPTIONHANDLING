@@ -1,0 +1,126 @@
+Default.aspx
+
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WebApp.Default" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Custom Exception Handling</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h2>Trigger Custom Exception</h2>
+            <asp:Button ID="btnTriggerException" runat="server" Text="Trigger Exception" OnClick="btnTriggerException_Click" />
+            <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
+        </div>
+    </form>
+</body>
+</html>
+
+
+CustomException.cs
+
+
+using System;
+
+namespace WebApp
+{
+    // Custom exception class inheriting from Exception
+    public class CustomException : Exception
+    {
+        public CustomException() { }
+
+        public CustomException(string message) : base(message) { }
+
+        public CustomException(string message, Exception innerException) : base(message, innerException) { }
+    }
+}
+
+
+web.config
+
+<configuration>
+	<system.web>
+		<authentication mode="Forms">
+			<!-- Configure forms authentication settings if needed -->
+			<forms loginUrl="Login.aspx" timeout="30" />
+		</authentication>
+		<authorization>
+			<configuration>
+				<system.web>
+					<authentication mode="Windows" />
+					<authorization>
+						<allow users="*" />
+					</authorization>
+				</system.web>
+			</configuration>
+
+			<deny users="?" />
+			<allow users="*" />
+		</authorization>
+	</system.web>
+</configuration>
+
+
+
+Global.aspx.cs
+
+using System;
+using System.Web;
+
+namespace WebApplication4
+{
+    public class Global : HttpApplication
+    {
+        protected void Application_Start(object sender, EventArgs e)
+        {
+            // Your startup code here
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception exception = Server.GetLastError();
+            // Handle exceptions here
+            Server.ClearError();
+        }
+    }
+}
+
+
+Default.aspx.cs
+
+using System;
+
+namespace WebApp
+{
+    public partial class Default : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+        }
+
+        protected void btnTriggerException_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Simulate some logic that can cause an exception
+                int number = 0;
+                if (number == 0)
+                {
+                    throw new CustomException("Custom Exception: Division by zero is not allowed.");
+                }
+            }
+            catch (CustomException ex)
+            {
+                // Display custom exception message on the page
+                lblMessage.Text = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                // Catch any other general exceptions
+                lblMessage.Text = "An unexpected error occurred: " + ex.Message;
+            }
+        }
+    }
+}
+
