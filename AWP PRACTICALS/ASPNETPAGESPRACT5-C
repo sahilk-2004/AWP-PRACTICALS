@@ -1,0 +1,95 @@
+Site.Master
+
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="StateDemo.Site" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title><asp:ContentPlaceHolder ID="HeadContent" runat="server"></asp:ContentPlaceHolder></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header>
+            <h1>ASP.NET Page States Demo</h1>
+        </header>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>
+
+
+Default.aspx
+
+<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="StateDemo.Default" %>
+<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+</asp:Content>
+<asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
+    <h2>Demonstrating Various States of ASP.NET Pages</h2>
+    <asp:Label ID="ViewStateLabel" runat="server" Text="View State: "></asp:Label><br />
+    <asp:TextBox ID="ViewStateTextBox" runat="server" AutoPostBack="true" OnTextChanged="ViewStateTextBox_TextChanged"></asp:TextBox><br />
+    <asp:Button ID="ViewStateButton" runat="server" Text="Store in View State" OnClick="ViewStateButton_Click" /><br />
+
+    <h3>Session State Example:</h3>
+    <asp:Label ID="SessionLabel" runat="server" Text="Session Value: "></asp:Label><br />
+    <asp:Button ID="SessionButton" runat="server" Text="Set Session Value" OnClick="SessionButton_Click" /><br />
+
+    <h3>Application State Example:</h3>
+    <asp:Label ID="AppLabel" runat="server" Text="Application Value: "></asp:Label><br />
+    <asp:Button ID="AppButton" runat="server" Text="Increment Application Value" OnClick="AppButton_Click" /><br />
+</asp:Content>
+
+
+Default.aspx.cs
+
+using System;
+using System.Web.UI;
+
+namespace StateDemo
+{
+    public partial class Default : Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                // Initialize ViewState
+                ViewState["SampleText"] = string.Empty;
+
+                // Initialize Application State
+                if (Application["AppValue"] == null)
+                {
+                    Application["AppValue"] = 0; // Initialize application state
+                }
+
+                AppLabel.Text = "Application Value: " + Application["AppValue"].ToString();
+            }
+            else
+            {
+                // Restore ViewState
+                ViewStateLabel.Text = "View State: " + ViewState["SampleText"];
+            }
+        }
+
+        protected void ViewStateTextBox_TextChanged(object sender, EventArgs e)
+        {
+            ViewState["SampleText"] = ViewStateTextBox.Text; // Update ViewState
+        }
+
+        protected void ViewStateButton_Click(object sender, EventArgs e)
+        {
+            ViewStateLabel.Text = "View State: " + ViewStateTextBox.Text; // Show ViewState value
+        }
+
+        protected void SessionButton_Click(object sender, EventArgs e)
+        {
+            Session["SessionValue"] = "Hello, this is a session message!";
+            SessionLabel.Text = "Session Value: " + Session["SessionValue"];
+        }
+
+        protected void AppButton_Click(object sender, EventArgs e)
+        {
+            Application["AppValue"] = (int)Application["AppValue"] + 1; // Increment application state
+            AppLabel.Text = "Application Value: " + Application["AppValue"].ToString();
+        }
+    }
+}
