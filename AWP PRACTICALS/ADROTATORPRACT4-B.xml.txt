@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Advertisements>
+	<Ad>
+		<AdID>Ad1</AdID>
+		<ImageURL>~/Images/1.jpg</ImageURL>
+		<NavigateUrl>https://in.images.search.yahoo.com/</NavigateUrl>
+		<Impressions>0</Impressions>
+	</Ad>
+	<Ad>
+		<AdID>Ad2</AdID>
+		<ImageURL>~/Images/2.jpeg</ImageURL>
+		<NavigateUrl>https://in.images.search.yahoo.com/</NavigateUrl>
+		<Impressions>0</Impressions>
+	</Ad>
+	<Ad>
+		<AdID>Ad3</AdID>
+		<ImageURL>~/Images/3jpg</ImageURL>
+		<NavigateUrl>https://in.images.search.yahoo.com/</NavigateUrl>
+		<Impressions>0</Impressions>
+	</Ad>
+</Advertisements>
