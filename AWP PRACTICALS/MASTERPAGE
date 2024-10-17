@@ -1,0 +1,160 @@
+Site.Master
+
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="MasterPageDemo.Site" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title><asp:ContentPlaceHolder ID="HeadContent" runat="server"></asp:ContentPlaceHolder></title>
+    <link rel="stylesheet" type="text/css" href="Styles.css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header>
+            <h1>My Website Header</h1>
+            <nav>
+                <asp:Menu ID="Menu1" runat="server" Orientation="Horizontal">
+                    <Items>
+                        <asp:MenuItem Text="Home" Value="~/Default.aspx" />
+                        <asp:MenuItem Text="About" Value="~/About.aspx" />
+                        <asp:MenuItem Text="Contact" Value="~/Contact.aspx" />
+                    </Items>
+                </asp:Menu>
+            </nav>
+        </header>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+        <footer>
+            <p>&copy; 2024 My Website</p>
+        </footer>
+    </form>
+</body>
+</html>
+
+
+
+
+<%@ Page Title="Home" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="MasterPageDemo.Default" %>
+
+<asp:Content ID="HeadContent" runat="server" ContentPlaceHolderID="HeadContent">
+    <link rel="stylesheet" type="text/css" href="Styles.css" />
+</asp:Content>
+
+<asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
+    <h2>Welcome to the Home Page</h2>
+    <p>This is the home page content.</p>
+</asp:Content>
+
+
+<%@ Page Title="About" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="MasterPageDemo.About" %>
+
+<asp:Content ID="HeadContent" runat="server" ContentPlaceHolderID="HeadContent">
+    <link rel="stylesheet" type="text/css" href="Styles.css" />
+</asp:Content>
+
+<asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
+    <h2>About Us</h2>
+    <p>This is the about page content.</p>
+</asp:Content>
+
+
+<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="MasterPageDemo.Contact" %>
+
+<asp:Content ID="HeadContent" runat="server" ContentPlaceHolderID="HeadContent">
+    <link rel="stylesheet" type="text/css" href="Styles.css" />
+</asp:Content>
+
+<asp:Content ID="MainContent" runat="server" ContentPlaceHolderID="MainContent">
+    <h2>Contact Us</h2>
+    <p>This is the contact page content.</p>
+</asp:Content>
+
+
+using System;
+
+namespace MasterPageDemo
+{
+    public partial class Default : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            // Code to execute on page load
+        }
+    }
+}
+
+
+using System;
+
+namespace MasterPageDemo
+{
+    public partial class About : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            // Code to execute on page load
+        }
+    }
+}
+
+
+using System;
+
+namespace MasterPageDemo
+{
+    public partial class Contact : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            // Code to execute on page load
+        }
+    }
+}
+
+
+Style.css
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background: #35424a;
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav {
+    margin: 10px 0;
+}
+
+    nav .aspNetMenu {
+        display: inline-block;
+        list-style-type: none;
+    }
+
+        nav .aspNetMenu a {
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+footer {
+    background: #35424a;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+h2 {
+    color: #35424a;
+}
