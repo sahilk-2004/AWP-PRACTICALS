@@ -1,0 +1,142 @@
+1 Default.aspx
+
+<%@ Page Title="Home" Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="NavigationDemo.Default" %>
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="NavigationDemo.Site" %>
+<%@ NavigationUrl="~/Web.sitemap" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Home Page</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h2>Welcome to the Home Page</h2>
+            <asp:Menu ID="Menu1" runat="server" DataSourceID="SiteMapDataSource1" />
+            <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+        </div>
+    </form>
+</body>
+</html>
+
+2 Default.aspx.cs
+
+using System;
+
+namespace NavigationDemo
+{
+    public partial class _Default : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            // Code to execute on page load
+        }
+    }
+
+
+}
+
+3 Page 1.aspx
+
+<%@ Page Title="Page 1" Language="C#" AutoEventWireup="true" CodeBehind="Page1.aspx.cs" Inherits="NavigationDemo.Page1" %>
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="NavigationDemo.Site" %>
+<%@ NavigationUrl="~/Web.sitemap" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Page 1</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h2>Welcome to Page 1</h2>
+            <asp:Menu ID="Menu1" runat="server" DataSourceID="SiteMapDataSource1" />
+            <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+        </div>
+    </form>
+</body>
+</html>
+
+
+4 Page2.aspx
+
+<%@ Page Title="Page 2" Language="C#" AutoEventWireup="true" CodeBehind="Page2.aspx.cs" Inherits="NavigationDemo.Page2" %>
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="NavigationDemo.Site" %>
+<%@ NavigationUrl="~/Web.sitemap" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Page 2</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h2>Welcome to Page 2</h2>
+            <asp:Menu ID="Menu1" runat="server" DataSourceID="SiteMapDataSource1" />
+            <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+        </div>
+    </form>
+</body>
+</html>
+
+5 Page3.aspx
+
+<%@ Page Title="Page 3" Language="C#" AutoEventWireup="true" CodeBehind="Page3.aspx.cs" Inherits="NavigationDemo.Page3" %>
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="NavigationDemo.Site" %>
+<%@ NavigationUrl="~/Web.sitemap" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Page 3</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h2>Welcome to Page 3</h2>
+            <asp:Menu ID="Menu1" runat="server" DataSourceID="SiteMapDataSource1" />
+            <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+        </div>
+    </form>
+</body>
+</html>
+
+
+6 Web.sitemap
+
+<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
+	<siteMapNode url="~/Default.aspx" title="Home">
+		<siteMapNode url="~/Page1.aspx" title="Page 1" />
+		<siteMapNode url="~/Page2.aspx" title="Page 2" />
+		<siteMapNode url="~/Page3.aspx" title="Page 3" />
+	</siteMapNode>
+</siteMap>
+
+
+7 site.Master
+
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="NavigationDemo.Site" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>
+
+
+
+
