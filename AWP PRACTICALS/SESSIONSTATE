@@ -1,0 +1,82 @@
+Site.Master
+
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="SessionStateDemo.Site" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title><asp:ContentPlaceHolder ID="HeadContent" runat="server"></asp:ContentPlaceHolder></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header>
+            <h1>Session State Demo</h1>
+        </header>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>
+
+
+Default.aspx
+
+<%@ Page Title="Session State Demo" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="SessionStateDemo.Default" %>
+<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+</asp:Content>
+<asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
+    <h2>Session State Demonstration</h2>
+    <asp:Label ID="SessionLabel" runat="server" Text="Session Value: "></asp:Label><br />
+    <asp:TextBox ID="SessionTextBox" runat="server"></asp:TextBox><br />
+    <asp:Button ID="SetSessionButton" runat="server" Text="Set Session Value" OnClick="SetSessionButton_Click" /><br />
+    <asp:Button ID="GetSessionButton" runat="server" Text="Get Session Value" OnClick="GetSessionButton_Click" /><br />
+    <asp:Button ID="ClearSessionButton" runat="server" Text="Clear Session Value" OnClick="ClearSessionButton_Click" /><br />
+</asp:Content>
+
+
+Default.aspx.cs
+
+
+using System;
+using System.Web.UI;
+
+namespace SessionStateDemo
+{
+    public partial class Default : Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            // Check if session exists on page load
+            if (Session["MySessionValue"] != null)
+            {
+                SessionLabel.Text = "Session Value: " + Session["MySessionValue"].ToString();
+            }
+        }
+
+        protected void SetSessionButton_Click(object sender, EventArgs e)
+        {
+            // Store value from TextBox in Session
+            Session["MySessionValue"] = SessionTextBox.Text;
+            SessionLabel.Text = "Session Value set to: " + SessionTextBox.Text;
+        }
+
+        protected void GetSessionButton_Click(object sender, EventArgs e)
+        {
+            // Retrieve value from Session
+            if (Session["MySessionValue"] != null)
+            {
+                SessionLabel.Text = "Session Value: " + Session["MySessionValue"].ToString();
+            }
+            else
+            {
+                SessionLabel.Text = "No session value set.";
+            }
+        }
+
+        protected void ClearSessionButton_Click(object sender, EventArgs e)
+        {
+            // Clear the session value
+            Session.Remove("MySessionValue");
+            SessionLabel.Text = "Session value cleared.";
+        }
+    }
+}
